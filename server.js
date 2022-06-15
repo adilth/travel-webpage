@@ -10,10 +10,13 @@ require("dotenv").config();
 // ========================
 app.set("view engine", "ejs");
 app.use(express.json());
-
-MongoClient.connect(process.env.DB_CONNECT).then((client) =>
-  console.log("hello")
-);
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+MongoClient.connect(process.env.DB_CONNECT).then((client) => {
+  //   console.log("hello")
+  const db = client.db("test");
+  const travelCollection = db.collection("travels");
+});
 
 // ========================
 //Router
