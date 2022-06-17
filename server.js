@@ -24,13 +24,28 @@ MongoClient.connect(process.env.DB_CONNECT).then((client) => {
 // ========================
 //Router
 // ========================
+// const getAllDocs: async () => {
+//   return await db.collection(coll).find().toArray();
+// };
+
 app.get("/", (req, res) => {
   db.collection("travels")
     .find()
     .toArray()
     .then((data) => {
-      console.log(data);
-      res.render("index.ejs", { info: data });
+      let country = data.map((el) => el.name);
+      // console.log(country);
+      res.render("index.ejs", { info: country });
+    })
+    .catch((error) => console.error(error));
+});
+app.post("/api", (req, res) => {
+  console.log("post heard");
+  db.collection("travels")
+    .insertOne(req.body)
+    .then((result) => {
+      console.log(result);
+      res.redirect("/");
     })
     .catch((error) => console.error(error));
 });
