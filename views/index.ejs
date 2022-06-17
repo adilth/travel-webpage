@@ -15,7 +15,9 @@
       <section>
          <h2></h2>
          <Select class="select-country">
-
+            <%  for(let i = 0; i < info.length; i++) { %>
+            <option value="<%=info[i] %>"><%=info[i] %></option>
+            <% } %>
          </Select>
       </section>
    </div>
